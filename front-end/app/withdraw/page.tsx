@@ -95,20 +95,6 @@ export default function WithdrawPage() {
           </p>
         </div>
 
-        {/* Conversion Rate Info */}
-        <div className="bg-gradient-to-r from-[#FDDA24]/10 to-[#B7ACE8]/10 border border-[#FDDA24]/30 rounded-xl p-4 mb-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <Trophy className="w-5 h-5 text-[#FDDA24]" />
-            <h3 className="text-[#FDDA24] font-semibold">Taxa de Conversão</h3>
-          </div>
-          <p className="text-[#F6F7F8] text-sm mb-1">
-            <span className="font-bold text-[#FDDA24]">1.000 tokens = $1,00 USD</span>
-          </p>
-          <p className="text-[#D6D2C4] text-xs">
-            Você ganha tokens baseado na distância percorrida e valor por km do clube.
-          </p>
-        </div>
-
         <div className="space-y-6">
           {/* Club Selection */}
           <div>

@@ -190,6 +190,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const clubId = `club_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
     const inviteLink = `${window.location.origin}/join-group?invite=${clubId}`
     
+    // Conversão: 1 USD = 1000 tokens do clube
+    const totalTokensFromDeposit = clubData.totalDeposit * 1000
+    
     const newClub: Club = {
       id: clubId,
       name: clubData.name,
@@ -198,7 +201,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       banner: clubData.bannerImage || undefined,
       createdBy: currentUser.id,
       members: [currentUser.id],
-      totalTokens: 0,
+      totalTokens: totalTokensFromDeposit, // Agora baseado na conversão 1 USD = 1000 tokens
       balance: clubData.totalDeposit,
       dollarsPerKm: clubData.dollarsPerKm,
       expirationMonths: clubData.expirationMonths,

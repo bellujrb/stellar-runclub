@@ -8,16 +8,13 @@ import Image from "next/image"
 import { useState, useCallback, useMemo } from "react"
 import { useRouter } from "next/navigation"
 import { useApp } from "../../contexts/AppContext"
-import { useWallet } from "../../contexts/wallet-context"
-import { useCreateClub } from "../../hooks/use-create-club"
 
 export default function CreateClubPage() {
   const router = useRouter()
   const { createClub: createClubInCache } = useApp()
-  const { isConnected, connect, publicKey, error: walletError } = useWallet() // Adicionar walletError
-  const { createClub, isLoading, error, clubId, transactionHash, resetResult } = useCreateClub()
   
   const [currentStep, setCurrentStep] = useState(1) // 1 = Criar Clube, 2 = Depósito
+  const [isLoading, setIsLoading] = useState(false)
   
   // Estados do Clube
   const [clubName, setClubName] = useState("")
@@ -40,24 +37,14 @@ export default function CreateClubPage() {
     if (currentStep === 1 && isClubFormValid) {
       setCurrentStep(2)
     } else if (currentStep === 2 && isDepositFormValid) {
-      // Verificar se a carteira está conectada
-      if (!isConnected) {
-        await connect()
-        return
-      }
-
-      // Verificar se há erros na carteira antes de prosseguir
-      if (walletError) {
-        console.error('Erro na carteira:', walletError)
-        return // Bloquear se houver erro na carteira
-      }
-
-      // Resetar resultados anteriores
-      resetResult()
+      setIsLoading(true)
 
       try {
-        // Criar o clube no contrato Stellar
-        const result = await createClub({
+        // Simular criação do clube
+        await new Promise(resolve => setTimeout(resolve, 2000)) // Simular delay
+        
+        // Criar o clube no cache local
+        const localClubId = createClubInCache({
           name: clubName,
           tokenSymbol: tokenSymbol,
           description: description,
@@ -67,32 +54,16 @@ export default function CreateClubPage() {
           expirationMonths: parseInt(expirationMonths),
           dollarsPerKm: parseFloat(dollarsPerKm)
         })
-
-        // Só prosseguir se a criação foi bem-sucedida
-        if (result?.success && result.clubId) {
-          // Criar o clube no cache local também
-          const localClubId = createClubInCache({
-            name: clubName,
-            tokenSymbol: tokenSymbol,
-            description: description,
-            bannerImage: bannerImage,
-            totalDeposit: parseFloat(totalDeposit),
-            isEquilibrated: isEquilibrated,
-            expirationMonths: parseInt(expirationMonths),
-            dollarsPerKm: parseFloat(dollarsPerKm)
-          })
-          
-          // Redirecionar para a rota dinâmica com o ID do clube
-          router.push(`/invite-challenge/${result.clubId}`)
-        } else {
-          // Se não foi bem-sucedida, não fazer nada (erro já está sendo mostrado)
-          console.error('Falha ao criar clube:', result?.error || 'Erro desconhecido')
-        }
+        
+        // Redirecionar para a rota dinâmica com o ID do clube
+        router.push(`/invite-challenge/${localClubId}`)
       } catch (err) {
         console.error('Erro inesperado ao criar clube:', err)
+      } finally {
+        setIsLoading(false)
       }
     }
-  }, [currentStep, clubName, tokenSymbol, description, bannerImage, totalDeposit, isEquilibrated, expirationMonths, dollarsPerKm, createClub, createClubInCache, router, isConnected, connect, resetResult, walletError])
+  }, [currentStep, clubName, tokenSymbol, description, bannerImage, totalDeposit, isEquilibrated, expirationMonths, dollarsPerKm, createClubInCache, router])
 
   const handleBack = useCallback(() => {
     if (currentStep === 2) {
@@ -147,12 +118,6 @@ export default function CreateClubPage() {
       {/* Title */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-[#F6F7F8]">Criar clube</h1>
-        {/* Mostrar carteira conectada */}
-        {isConnected && publicKey && (
-          <p className="text-[#D6D2C4] text-sm mt-2">
-            Carteira: {publicKey.slice(0, 8)}...{publicKey.slice(-8)}
-          </p>
-        )}
       </div>
 
       {/* Banner photo section */}
@@ -221,7 +186,7 @@ export default function CreateClubPage() {
         </div>
       </div>
     </>
-  ), [clubName, tokenSymbol, description, bannerImage, isConnected, publicKey, handleBannerUpload, handleClubNameChange, handleTokenSymbolChange, handleDescriptionChange])
+  ), [clubName, tokenSymbol, description, bannerImage, handleBannerUpload, handleClubNameChange, handleTokenSymbolChange, handleDescriptionChange])
 
   // Componente de Depósito
   const DepositStep = useMemo(() => (
@@ -230,12 +195,6 @@ export default function CreateClubPage() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-[#F6F7F8]">Depósito</h1>
         <p className="text-[#D6D2C4] text-sm mt-2">Configure os parâmetros do seu depósito</p>
-        {/* Mostrar carteira conectada */}
-        {isConnected && publicKey && (
-          <p className="text-[#D6D2C4] text-xs mt-1">
-            Organizador: {publicKey.slice(0, 8)}...{publicKey.slice(-8)}
-          </p>
-        )}
       </div>
 
       {/* Total a Depositar */}
@@ -329,9 +288,9 @@ export default function CreateClubPage() {
         </div>
       </div>
     </>
-  ), [totalDeposit, isEquilibrated, expirationMonths, dollarsPerKm, isConnected, publicKey, handleTotalDepositChange, toggleEquilibrated, handleExpirationMonthsChange, handleDollarsPerKmChange])
+  ), [totalDeposit, isEquilibrated, expirationMonths, dollarsPerKm, handleTotalDepositChange, toggleEquilibrated, handleExpirationMonthsChange, handleDollarsPerKmChange])
 
-  // Modificar o botão para mostrar estado de loading e erro
+  // Botão simplificado sem integração de carteira
   const renderActionButton = () => {
     if (currentStep === 1) {
       return (
@@ -346,52 +305,13 @@ export default function CreateClubPage() {
     }
 
     return (
-      <div className="space-y-4">
-        {/* Mostrar erro da carteira */}
-        {walletError && (
-          <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
-            <p className="text-red-400 text-sm font-medium">Erro na carteira:</p>
-            <p className="text-red-400 text-sm">{walletError}</p>
-            <button 
-              onClick={() => window.location.reload()} 
-              className="text-red-300 text-xs underline mt-2 hover:text-red-200"
-            >
-              Recarregar página
-            </button>
-          </div>
-        )}
-        
-        {/* Mostrar erro do hook */}
-        {error && (
-          <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
-            <p className="text-red-400 text-sm font-medium">Erro ao criar clube:</p>
-            <p className="text-red-400 text-sm">{error}</p>
-          </div>
-        )}
-        
-        {transactionHash && (
-          <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
-            <p className="text-green-400 text-sm">
-              Clube criado com sucesso! ID: {clubId}
-            </p>
-            <p className="text-green-400 text-xs mt-1">
-              Hash: {transactionHash}
-            </p>
-          </div>
-        )}
-
-        <Button
-          onClick={handleNextStep}
-          disabled={!isDepositFormValid || isLoading || !isConnected || !!walletError || !!error}
-          className="w-full h-14 bg-[#FDDA24] hover:bg-[#FDDA24] text-[#0F0F0F] font-bold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl disabled:hover:scale-100 disabled:hover:shadow-lg"
-        >
-          {isLoading ? 'Criando clube...' : 
-           !isConnected ? 'Conectar carteira' : 
-           walletError ? 'Erro na carteira' :
-           error ? 'Erro - Tente novamente' :
-           'CRIAR CLUBE'}
-        </Button>
-      </div>
+      <Button
+        onClick={handleNextStep}
+        disabled={!isDepositFormValid || isLoading}
+        className="w-full h-14 bg-[#FDDA24] hover:bg-[#FDDA24] text-[#0F0F0F] font-bold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl disabled:hover:scale-100 disabled:hover:shadow-lg"
+      >
+        {isLoading ? 'Criando clube...' : 'CRIAR CLUBE'}
+      </Button>
     )
   }
 

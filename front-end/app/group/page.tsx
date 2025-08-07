@@ -80,7 +80,8 @@ export default function GroupPage() {
       <div className="grid grid-cols-1 gap-4">
         <MembersCard memberCount={selectedClub?.members.length || 0} />
         <ClubTokensCard 
-          tokens={selectedClub?.symbol || ''}
+          tokenName={selectedClub?.symbol || ''}
+          totalTokens={selectedClub?.totalTokens || 0}
         />
         <AddFundsCard 
           onAddFunds={() => console.log('Add funds')}
@@ -98,6 +99,10 @@ export default function GroupPage() {
           <div className="flex justify-between">
             <span className="text-[#B7ACE8]">Símbolo:</span>
             <span className="text-[#F6F7F8]">{selectedClub?.symbol}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-[#B7ACE8]">Total de Tokens:</span>
+            <span className="text-[#F6F7F8]">{selectedClub?.totalTokens.toLocaleString()}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-[#B7ACE8]">Membros:</span>
