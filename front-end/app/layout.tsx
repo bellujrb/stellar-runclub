@@ -9,8 +9,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: "Stellar Run Club",
-  description: "Onde a corrida encontra a comunidade real",
-  generator: 'v0.dev'
+  description: "Where running meets real community",
 };
 
 export default function RootLayout({
@@ -20,11 +19,11 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="pt-BR">
+      <html lang="en">
         <body className={inter.className}>
           <AppProvider>
             <WalletProvider>
-              {/* Container com largura de mobile no desktop, responsivo no mobile */}
+              {/* Mobile-width container on desktop, responsive on mobile */}
               <div className="flex justify-center">
                 <div className="w-full">
                   {children}

@@ -23,13 +23,13 @@ export default function StartRunPage() {
 
   const selectedClub = selectedClubId ? getClubById(selectedClubId) : null
 
-  // Simula o contador de distância durante a corrida
+  // Simulates distance counter during run
   useEffect(() => {
     let interval: NodeJS.Timeout
     if (isRunning && !isPaused) {
       interval = setInterval(() => {
         setDistance(prev => {
-          const increment = Math.random() * 0.02 + 0.01 // 0.01-0.03 km por segundo
+          const increment = Math.random() * 0.02 + 0.01 // 0.01-0.03 km per second
           return prev + increment
         })
         setDuration(prev => prev + 1)
@@ -38,7 +38,7 @@ export default function StartRunPage() {
     return () => clearInterval(interval)
   }, [isRunning, isPaused])
 
-  // Calcula o pace (tempo por km)
+  // Calculates pace (time per km)
   useEffect(() => {
     if (distance > 0 && duration > 0) {
       const paceInSeconds = duration / distance
@@ -61,23 +61,23 @@ export default function StartRunPage() {
   const handleStopRun = () => {
     if (!selectedClub) return
     
-    // Calcula tokens baseado no dollarsPerKm do clube
+    // Calculate tokens based on club's dollarsPerKm
     const earnedTokens = Math.floor(distance * selectedClub.dollarsPerKm)
     setTokensEarned(earnedTokens)
     
-    // Atualiza as estatísticas do usuário
+    // Update user statistics
     updateUserStats(distance, earnedTokens)
     
     setIsRunning(false)
     setIsPaused(false)
     setShowCompletionModal(true)
     
-    console.log(`Corrida finalizada: ${distance.toFixed(2)}km em ${Math.floor(duration/60)}:${(duration%60).toString().padStart(2, '0')} - ${earnedTokens} tokens ganhos (${selectedClub.dollarsPerKm} tokens/km)`)
+    console.log(`Run completed: ${distance.toFixed(2)}km in ${Math.floor(duration/60)}:${(duration%60).toString().padStart(2, '0')} - ${earnedTokens} tokens earned (${selectedClub.dollarsPerKm} tokens/km)`)
   }
 
   const handleCloseModal = () => {
     setShowCompletionModal(false)
-    // Reset da corrida
+    // Reset run
     setDistance(0)
     setDuration(0)
     setPace("0:00")
@@ -111,9 +111,9 @@ export default function StartRunPage() {
                 <div className="w-20 h-20 bg-[#FDDA24] rounded-full flex items-center justify-center mx-auto mb-4">
                   <Trophy className="w-10 h-10 text-[#0F0F0F]" />
                 </div>
-                <h3 className="text-[#F6F7F8] font-bold text-2xl mb-2">Parabéns!</h3>
+                <h3 className="text-[#F6F7F8] font-bold text-2xl mb-2">Congratulations!</h3>
                 <p className="text-[#D6D2C4] text-sm mb-4">
-                  Você concluiu {distance.toFixed(2)} km em {formatTime(duration)}
+                  You completed {distance.toFixed(2)} km in {formatTime(duration)}
                 </p>
                 
                 {/* Stats */}
@@ -121,11 +121,11 @@ export default function StartRunPage() {
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div>
                       <div className="text-[#FDDA24] text-2xl font-bold">{distance.toFixed(2)}</div>
-                      <div className="text-[#666] text-xs">Quilômetros</div>
+                      <div className="text-[#666] text-xs">Kilometers</div>
                     </div>
                     <div>
                       <div className="text-[#B7ACE8] text-2xl font-bold">{pace}</div>
-                      <div className="text-[#666] text-xs">Pace médio</div>
+                      <div className="text-[#666] text-xs">Average pace</div>
                     </div>
                   </div>
                 </div>
@@ -137,7 +137,7 @@ export default function StartRunPage() {
                     <span className="text-[#0F0F0F] font-bold text-lg">+{tokensEarned} Tokens</span>
                   </div>
                   <p className="text-[#0F0F0F] text-sm mt-1 opacity-80">
-                    Adicionados ao seu clube!
+                    Added to your club!
                   </p>
                 </div>
               </div>
@@ -147,7 +147,7 @@ export default function StartRunPage() {
                   onClick={handleCloseModal}
                   className="w-full h-12 bg-[#FDDA24] hover:bg-[#B7ACE8] text-[#0F0F0F] font-bold rounded-xl transition-all duration-200"
                 >
-                  Continuar
+                  Continue
                 </Button>
               </div>
 
@@ -175,7 +175,7 @@ export default function StartRunPage() {
           <button onClick={() => setShowDrawer(true)} className="text-[#F6F7F8] hover:text-[#FDDA24] transition-colors">
             <Menu className="w-6 h-6" />
           </button>
-          <h1 className="text-[#F6F7F8] font-bold text-lg">Iniciar Corrida</h1>
+          <h1 className="text-[#F6F7F8] font-bold text-lg">Start Run</h1>
           <div className="w-6 h-6"></div> {/* Spacer */}
         </div>
 
@@ -185,7 +185,7 @@ export default function StartRunPage() {
             <>
               {/* Club Selection */}
               <div className="mb-8 mt-6">
-                <h2 className="text-[#F6F7F8] font-semibold text-xl mb-4">Escolha seu Clube</h2>
+                <h2 className="text-[#F6F7F8] font-semibold text-xl mb-4">Choose Your Club</h2>
                 <div className="space-y-3">
                   {userClubs.map((club) => (
                     <button
@@ -205,7 +205,7 @@ export default function StartRunPage() {
                         </div>
                         <div className="flex-1 text-left">
                           <h3 className="text-[#F6F7F8] font-semibold text-lg">{club.name}</h3>
-                          <p className="text-[#666] text-sm">{club.members.length} membros • {club.dollarsPerKm} tokens/km</p>
+                          <p className="text-[#666] text-sm">{club.members.length} members • {club.dollarsPerKm} tokens/km</p>
                         </div>
                         {selectedClubId === club.id && (
                           <div className="w-6 h-6 bg-[#FDDA24] rounded-full flex items-center justify-center">
@@ -219,12 +219,12 @@ export default function StartRunPage() {
                 
                 {userClubs.length === 0 && (
                   <div className="text-center py-8">
-                    <p className="text-[#666] mb-4">Você não faz parte de nenhum clube ainda.</p>
+                    <p className="text-[#666] mb-4">You're not part of any club yet.</p>
                     <Button
                       onClick={() => router.push('/group')}
                       className="bg-[#FDDA24] text-[#0F0F0F] hover:bg-[#E5C321]"
                     >
-                      Ir para Grupos
+                      Go to Groups
                     </Button>
                   </div>
                 )}
@@ -242,10 +242,10 @@ export default function StartRunPage() {
                   }`}
                 >
                   <Play className="w-8 h-8 mr-3" />
-                  Iniciar Corrida
+                  Start Run
                 </Button>
                 {!selectedClubId && userClubs.length > 0 && (
-                  <p className="text-[#666] text-sm mt-2">Selecione um clube para começar</p>
+                  <p className="text-[#666] text-sm mt-2">Select a club to start</p>
                 )}
               </div>
             </>
@@ -263,7 +263,7 @@ export default function StartRunPage() {
                   {selectedClub?.name}
                 </h2>
                 <p className="text-[#666] text-sm">
-                  {isPaused ? 'Corrida pausada' : 'Corrida em andamento'} • {selectedClub?.dollarsPerKm} tokens/km
+                  {isPaused ? 'Run paused' : 'Run in progress'} • {selectedClub?.dollarsPerKm} tokens/km
                 </p>
               </div>
 
@@ -272,7 +272,7 @@ export default function StartRunPage() {
                 <div className="text-[#FDDA24] text-6xl font-bold mb-2">
                   {distance.toFixed(2)}
                 </div>
-                <div className="text-[#F6F7F8] text-xl font-semibold">Quilômetros</div>
+                <div className="text-[#F6F7F8] text-xl font-semibold">Kilometers</div>
               </div>
 
               {/* Stats Grid */}
@@ -280,7 +280,7 @@ export default function StartRunPage() {
                 <div className="bg-[#2A2A2A] rounded-xl p-4 text-center">
                   <div className="flex items-center justify-center mb-2">
                     <Timer className="w-5 h-5 text-[#B7ACE8] mr-2" />
-                    <span className="text-[#666] text-sm">Tempo</span>
+                    <span className="text-[#666] text-sm">Time</span>
                   </div>
                   <div className="text-[#F6F7F8] text-2xl font-bold">
                     {formatTime(duration)}
@@ -304,9 +304,9 @@ export default function StartRunPage() {
                   className="flex-1 h-14 bg-[#B7ACE8] hover:bg-[#9A8CD9] text-[#0F0F0F] font-bold rounded-xl"
                 >
                   {isPaused ? (
-                    <><Play className="w-6 h-6 mr-2" />Retomar</>
+                    <><Play className="w-6 h-6 mr-2" />Resume</>
                   ) : (
-                    <><Pause className="w-6 h-6 mr-2" />Pausar</>
+                    <><Pause className="w-6 h-6 mr-2" />Pause</>
                   )}
                 </Button>
                 <Button
@@ -314,7 +314,7 @@ export default function StartRunPage() {
                   className="flex-1 h-14 bg-[#E53E3E] hover:bg-[#C53030] text-white font-bold rounded-xl"
                 >
                   <Square className="w-6 h-6 mr-2" />
-                  Finalizar
+                  Finish
                 </Button>
               </div>
             </>

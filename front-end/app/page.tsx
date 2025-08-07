@@ -13,7 +13,7 @@ export default function OnboardingPage() {
 
   useEffect(() => {
     if (isSignedIn) {
-      // Redireciona diretamente para o grupo após login
+      // Redirect directly to group after login
       router.push('/group')
     }
   }, [isSignedIn, user, router])
@@ -60,9 +60,9 @@ export default function OnboardingPage() {
         {/* Welcome text */}
         <div className="text-center mb-12">
           <h2 className="text-2xl text-[#F6F7F8] mb-2">
-            Bem-vindo ao <span className="font-bold">Stellar Run Club</span>
+            Welcome to <span className="font-bold">Stellar Run Club</span>
           </h2>
-          <p className="text-[#D6D2C4] text-sm">Onde a corrida encontra a comunidade real</p>
+          <p className="text-[#D6D2C4] text-sm">Where running meets real community</p>
         </div>
 
         {/* Continue with text */}
@@ -73,7 +73,7 @@ export default function OnboardingPage() {
               <Button 
                 className="w-full h-14 bg-[#FDDA24] hover:bg-[#FDDA24] text-[#0F0F0F] font-bold text-lg rounded-2xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2"
               >
-                <span>Entrar</span>
+                <span>Sign In</span>
               </Button>
             </SignInButton>
           </div>
@@ -82,8 +82,8 @@ export default function OnboardingPage() {
         {/* Support text */}
         <div className="text-center">
           <p className="text-[#666] text-sm">
-            Problemas para entrar?{" "}
-            <button className="text-[#FDDA24] hover:text-[#B7ACE8] transition-colors">Contate o suporte</button>
+            Having trouble signing in?{" "}
+            <button className="text-[#FDDA24] hover:text-[#B7ACE8] transition-colors">Contact support</button>
           </p>
         </div>
       </div>

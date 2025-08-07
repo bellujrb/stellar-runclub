@@ -21,7 +21,7 @@ export default function JoinGroupPage() {
   }
 
   const handleClose = () => {
-    router.push('/getting-started')
+    router.push('/group')
   }
 
   const isValidInput = inviteInput.trim().length > 0
@@ -48,8 +48,8 @@ export default function JoinGroupPage() {
       <div className="flex-1 px-6">
         {/* Title and description */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-[#F6F7F8] mb-4">Juntar-se ao grupo</h1>
-          <p className="text-[#D6D2C4] text-base">Insira um link de convite ou código para participar de um desafio.</p>
+          <h1 className="text-3xl font-bold text-[#F6F7F8] mb-4">Join Group</h1>
+          <p className="text-[#D6D2C4] text-base">Enter an invite link or code to join a challenge.</p>
         </div>
 
         {/* Input field */}
@@ -65,7 +65,7 @@ export default function JoinGroupPage() {
 
         {/* Examples section */}
         <div className="mb-8">
-          <h3 className="text-[#F6F7F8] font-medium mb-4">Parece que</h3>
+          <h3 className="text-[#F6F7F8] font-medium mb-4">Looks like</h3>
           <div className="space-y-3">
             <div className="flex items-center">
               <div className="w-2 h-2 bg-[#FDDA24] rounded-full mr-3 flex-shrink-0"></div>
@@ -87,14 +87,14 @@ export default function JoinGroupPage() {
             disabled={!isValidInput}
             className="w-full h-14 bg-[#E53E3E] hover:bg-[#C53030] text-white font-bold text-lg rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            Entrar no Grupo
+            Join Group
           </Button>
         </div>
 
         {/* Discover section */}
         <div className="text-center">
           <p className="text-[#D6D2C4] text-sm">
-            Procurando grupos para participar? Descubra desafios no{" "}
+            Looking for groups to join? Discover challenges on{" "}
             <button className="text-[#FDDA24] hover:text-[#B7ACE8] font-semibold transition-colors">
               Stellar Explorer
             </button>

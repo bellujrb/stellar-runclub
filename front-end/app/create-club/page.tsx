@@ -13,16 +13,16 @@ export default function CreateClubPage() {
   const router = useRouter()
   const { createClub: createClubInCache } = useApp()
   
-  const [currentStep, setCurrentStep] = useState(1) // 1 = Criar Clube, 2 = Depósito
+  const [currentStep, setCurrentStep] = useState(1) // 1 = Create Club, 2 = Deposit
   const [isLoading, setIsLoading] = useState(false)
   
-  // Estados do Clube
+  // Club States
   const [clubName, setClubName] = useState("")
   const [tokenSymbol, setTokenSymbol] = useState("")
   const [description, setDescription] = useState("")
   const [bannerImage, setBannerImage] = useState<string | null>(null)
   
-  // Estados do Depósito
+  // Deposit States
   const [totalDeposit, setTotalDeposit] = useState("")
   const [isEquilibrated, setIsEquilibrated] = useState(false)
   const [expirationMonths, setExpirationMonths] = useState("")
@@ -40,10 +40,10 @@ export default function CreateClubPage() {
       setIsLoading(true)
 
       try {
-        // Simular criação do clube
-        await new Promise(resolve => setTimeout(resolve, 2000)) // Simular delay
+        // Simulate club creation
+        await new Promise(resolve => setTimeout(resolve, 2000)) // Simulate delay
         
-        // Criar o clube no cache local
+        // Create club in local cache
         const localClubId = createClubInCache({
           name: clubName,
           tokenSymbol: tokenSymbol,
@@ -55,10 +55,10 @@ export default function CreateClubPage() {
           dollarsPerKm: parseFloat(dollarsPerKm)
         })
         
-        // Redirecionar para a rota dinâmica com o ID do clube
+        // Redirect to dynamic route with club ID
         router.push(`/invite-challenge/${localClubId}`)
       } catch (err) {
-        console.error('Erro inesperado ao criar clube:', err)
+        console.error('Unexpected error creating club:', err)
       } finally {
         setIsLoading(false)
       }
@@ -112,12 +112,12 @@ export default function CreateClubPage() {
     setIsEquilibrated(prev => !prev)
   }, [])
 
-  // Componente de Criação do Clube
+  // Club Creation Component
   const ClubCreationStep = useMemo(() => (
     <>
       {/* Title */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-[#F6F7F8]">Criar clube</h1>
+        <h1 className="text-3xl font-bold text-[#F6F7F8]">Create Club</h1>
       </div>
 
       {/* Banner photo section */}
@@ -129,7 +129,7 @@ export default function CreateClubPage() {
           {bannerImage ? (
             <img
               src={bannerImage || "/placeholder.svg"}
-              alt="Banner do clube"
+              alt="Club banner"
               className="w-full h-full object-cover rounded-xl"
             />
           ) : (
@@ -138,7 +138,7 @@ export default function CreateClubPage() {
               <div className="w-16 h-16 mb-3 opacity-30">
                 <Image src="/images/new-logo.avif" alt="Stellar" width={64} height={64} className="object-contain" />
               </div>
-              <span className="text-[#666] text-sm">Foto do banner</span>
+              <span className="text-[#666] text-sm">Banner photo</span>
             </div>
           )}
 
@@ -155,7 +155,7 @@ export default function CreateClubPage() {
         <div>
           <Input
             type="text"
-            placeholder="Nome do clube"
+            placeholder="Club name"
             value={clubName}
             onChange={handleClubNameChange}
             className="w-full h-14 bg-[#2A2A2A] border-0 text-[#F6F7F8] placeholder:text-[#666] focus:bg-[#333] focus:ring-2 focus:ring-[#FDDA24] rounded-xl text-base"
@@ -166,19 +166,19 @@ export default function CreateClubPage() {
         <div>
           <Input
             type="text"
-            placeholder="Sigla do token (ex: SRC)"
+            placeholder="Token symbol (e.g. SRC)"
             value={tokenSymbol}
             onChange={handleTokenSymbolChange}
             maxLength={6}
             className="w-full h-14 bg-[#2A2A2A] border-0 text-[#F6F7F8] placeholder:text-[#666] focus:bg-[#333] focus:ring-2 focus:ring-[#FDDA24] rounded-xl text-base"
           />
-          <p className="text-[#666] text-xs mt-2">Máximo 6 caracteres para a sigla do token</p>
+          <p className="text-[#666] text-xs mt-2">Maximum 6 characters for token symbol</p>
         </div>
 
         {/* Description */}
         <div>
           <Textarea
-            placeholder="Descrição (opcional)"
+            placeholder="Description (optional)"
             value={description}
             onChange={handleDescriptionChange}
             className="w-full h-32 bg-[#2A2A2A] border-0 text-[#F6F7F8] placeholder:text-[#666] focus:bg-[#333] focus:ring-2 focus:ring-[#FDDA24] rounded-xl text-base resize-none"
@@ -188,23 +188,23 @@ export default function CreateClubPage() {
     </>
   ), [clubName, tokenSymbol, description, bannerImage, handleBannerUpload, handleClubNameChange, handleTokenSymbolChange, handleDescriptionChange])
 
-  // Componente de Depósito
+  // Deposit Component
   const DepositStep = useMemo(() => (
     <>
       {/* Title */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-[#F6F7F8]">Depósito</h1>
-        <p className="text-[#D6D2C4] text-sm mt-2">Configure os parâmetros do seu depósito</p>
+        <h1 className="text-3xl font-bold text-[#F6F7F8]">Deposit</h1>
+        <p className="text-[#D6D2C4] text-sm mt-2">Configure your deposit parameters</p>
       </div>
 
-      {/* Total a Depositar */}
+      {/* Total to Deposit */}
       <div className="bg-[#2A2A2A] rounded-2xl p-6 mb-6 relative">
         {/* Stellar logo watermark */}
         <div className="absolute top-4 right-4 w-8 h-8 opacity-10">
           <Image src="/images/new-logo.avif" alt="Stellar" width={32} height={32} className="object-contain" />
         </div>
 
-        <h3 className="text-[#F6F7F8] font-semibold text-lg mb-4">Total a Depositar</h3>
+        <h3 className="text-[#F6F7F8] font-semibold text-lg mb-4">Total to Deposit</h3>
         
         <div className="flex items-center space-x-3">
           <div className="flex items-center bg-[#FDDA24] rounded-lg px-4 py-3 min-w-[80px]">
@@ -221,12 +221,12 @@ export default function CreateClubPage() {
         </div>
       </div>
 
-      {/* Equilibrário Toggle */}
+      {/* Equilibrium Toggle */}
       <div className="bg-[#2A2A2A] rounded-2xl p-6 mb-6">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-[#F6F7F8] font-semibold text-lg">Equilibrário</h3>
-            <p className="text-[#D6D2C4] text-sm mt-1">Distribuição equilibrada de recompensas</p>
+            <h3 className="text-[#F6F7F8] font-semibold text-lg">Equilibrium</h3>
+            <p className="text-[#D6D2C4] text-sm mt-1">Balanced reward distribution</p>
           </div>
           <button
             onClick={toggleEquilibrated}
@@ -241,14 +241,14 @@ export default function CreateClubPage() {
         </div>
       </div>
 
-      {/* Tempo de Expiração */}
+      {/* Expiration Time */}
       <div className="bg-[#2A2A2A] rounded-2xl p-6 mb-6">
-        <h3 className="text-[#F6F7F8] font-semibold text-lg mb-4">Tempo de Expiração</h3>
+        <h3 className="text-[#F6F7F8] font-semibold text-lg mb-4">Expiration Time</h3>
         
         <div className="flex items-center space-x-3">
           <div className="flex items-center bg-[#B7ACE8] rounded-lg px-4 py-3 min-w-[100px]">
             <Clock className="w-5 h-5 text-[#0F0F0F] mr-2" />
-            <span className="text-[#0F0F0F] font-bold">Meses</span>
+            <span className="text-[#0F0F0F] font-bold">Months</span>
           </div>
           <Input
             type="number"
@@ -260,10 +260,10 @@ export default function CreateClubPage() {
         </div>
       </div>
 
-      {/* Proporção Dólares por KM */}
+      {/* Dollars per KM Ratio */}
       <div className="bg-[#2A2A2A] rounded-2xl p-6 mb-6">
-        <h3 className="text-[#F6F7F8] font-semibold text-lg mb-2">Proporção por KM</h3>
-        <p className="text-[#D6D2C4] text-sm mb-4">Quantos dólares a cada quilômetro percorrido</p>
+        <h3 className="text-[#F6F7F8] font-semibold text-lg mb-2">Ratio per KM</h3>
+        <p className="text-[#D6D2C4] text-sm mb-4">How many dollars for each kilometer traveled</p>
         
         <div className="flex items-center space-x-3">
           <div className="flex items-center bg-[#00A7B5] rounded-lg px-4 py-3 min-w-[120px]">
@@ -280,17 +280,17 @@ export default function CreateClubPage() {
           />
         </div>
         
-        {/* Exemplo visual */}
+        {/* Visual example */}
         <div className="mt-4 p-3 bg-[#1A1A1A] rounded-lg">
           <p className="text-[#FDDA24] text-sm font-medium">
-            Exemplo: {dollarsPerKm || "1"} DOL = 1 KM percorrido
+            Example: {dollarsPerKm || "1"} DOL = 1 KM traveled
           </p>
         </div>
       </div>
     </>
   ), [totalDeposit, isEquilibrated, expirationMonths, dollarsPerKm, handleTotalDepositChange, toggleEquilibrated, handleExpirationMonthsChange, handleDollarsPerKmChange])
 
-  // Botão simplificado sem integração de carteira
+  // Simplified button without wallet integration
   const renderActionButton = () => {
     if (currentStep === 1) {
       return (
@@ -299,7 +299,7 @@ export default function CreateClubPage() {
           disabled={!isClubFormValid}
           className="w-full h-14 bg-[#FDDA24] hover:bg-[#FDDA24] text-[#0F0F0F] font-bold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl disabled:hover:scale-100 disabled:hover:shadow-lg"
         >
-          Próxima
+          Next
         </Button>
       )
     }
@@ -310,7 +310,7 @@ export default function CreateClubPage() {
         disabled={!isDepositFormValid || isLoading}
         className="w-full h-14 bg-[#FDDA24] hover:bg-[#FDDA24] text-[#0F0F0F] font-bold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl disabled:hover:scale-100 disabled:hover:shadow-lg"
       >
-        {isLoading ? 'Criando clube...' : 'CRIAR CLUBE'}
+        {isLoading ? 'Creating club...' : 'CREATE CLUB'}
       </Button>
     )
   }
@@ -338,7 +338,7 @@ export default function CreateClubPage() {
       <div className="flex-1 px-6">
         {currentStep === 1 ? ClubCreationStep : DepositStep}
 
-        {/* Botão Próxima/Próximo - movido para baixo dos campos */}
+        {/* Next/Create Button - moved below fields */}
         <div className="mt-8 mb-6">
           {renderActionButton()}
         </div>

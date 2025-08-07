@@ -67,10 +67,10 @@ export default function InviteChallengePage({ params }: InviteChallengePageProps
       <div className="flex-1 px-6">
         {/* Title and description */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-[#F6F7F8] mb-4">Convidar para desafio</h1>
-          <p className="text-[#D6D2C4] text-base">Convide membros para o grupo compartilhando o link abaixo.</p>
-          {/* Mostrar o ID do desafio */}
-          <p className="text-[#FDDA24] text-sm mt-2">ID do Desafio: {challengeId}</p>
+          <h1 className="text-3xl font-bold text-[#F6F7F8] mb-4">Invite to Challenge</h1>
+          <p className="text-[#D6D2C4] text-base">Invite members to the group by sharing the link below.</p>
+          {/* Show challenge ID */}
+          <p className="text-[#FDDA24] text-sm mt-2">Challenge ID: {challengeId}</p>
         </div>
 
         {/* Invite link section */}
@@ -91,7 +91,7 @@ export default function InviteChallengePage({ params }: InviteChallengePageProps
 
         {/* Member entry options */}
         <div className="mb-8">
-          <h3 className="text-[#F6F7F8] font-semibold text-lg mb-6">Entrada de novos membros</h3>
+          <h3 className="text-[#F6F7F8] font-semibold text-lg mb-6">Member Entry</h3>
 
           <div className="space-y-4">
             {/* Open option */}
@@ -106,8 +106,8 @@ export default function InviteChallengePage({ params }: InviteChallengePageProps
                 </div>
               </div>
               <div className="flex-1">
-                <h4 className="text-[#F6F7F8] font-semibold mb-1">Aberto</h4>
-                <p className="text-[#D6D2C4] text-sm">Qualquer pessoa com o link pode participar.</p>
+                <h4 className="text-[#F6F7F8] font-semibold mb-1">Open</h4>
+                <p className="text-[#D6D2C4] text-sm">Anyone with the link can join.</p>
               </div>
             </div>
 
@@ -123,8 +123,8 @@ export default function InviteChallengePage({ params }: InviteChallengePageProps
                 </div>
               </div>
               <div className="flex-1">
-                <h4 className="text-[#F6F7F8] font-semibold mb-1">Restrito</h4>
-                <p className="text-[#D6D2C4] text-sm">Você deve aprovar cada membro.</p>
+                <h4 className="text-[#F6F7F8] font-semibold mb-1">Restricted</h4>
+                <p className="text-[#D6D2C4] text-sm">You must approve each member.</p>
               </div>
             </div>
           </div>
@@ -137,8 +137,8 @@ export default function InviteChallengePage({ params }: InviteChallengePageProps
               <span className="text-[#0F0F0F] font-bold text-sm">✓</span>
             </div>
             <div>
-              <h4 className="text-[#F6F7F8] font-semibold mb-1">Clube criado com sucesso!</h4>
-              <p className="text-[#D6D2C4] text-sm">Seu Stellar Run Club está pronto para receber membros.</p>
+              <h4 className="text-[#F6F7F8] font-semibold mb-1">Challenge Created Successfully!</h4>
+              <p className="text-[#D6D2C4] text-sm">Your Stellar Run Club is ready to accept members.</p>
             </div>
           </div>
         </div>
@@ -156,7 +156,7 @@ export default function InviteChallengePage({ params }: InviteChallengePageProps
           className="w-full h-14 bg-[#FDDA24] hover:bg-[#FDDA24] text-[#0F0F0F] font-bold text-lg rounded-2xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2"
         >
           <Share className="w-5 h-5" />
-          <span>Compartilhar link</span>
+          <span>Share Link</span>
         </Button>
 
         <Button
@@ -164,7 +164,7 @@ export default function InviteChallengePage({ params }: InviteChallengePageProps
           variant="outline"
           className="w-full h-14 bg-[#2A2A2A] border-[#333] hover:bg-[#FDDA24] hover:bg-opacity-10 hover:border-[#FDDA24] text-[#F6F7F8] hover:text-[#FDDA24] font-semibold text-lg rounded-2xl transition-all duration-200"
         >
-          Agora não
+          Not Now
         </Button>
       </div>
 

@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation"
 import { useApp } from "../contexts/AppContext"
 import { SignOutButton } from '@clerk/nextjs'
 
-// Adicionar a interface Club
+// Add the Club interface
 interface Club {
   id: string
   name: string
@@ -73,13 +73,13 @@ export default function GlobalDrawer({ isOpen, onClose, currentPage }: GlobalDra
             </div>
             <div>
               <p className="text-[#F6F7F8] font-semibold">{currentUser?.name || 'João Rubens'}</p>
-              <p className="text-[#666] text-sm">{currentUser?.totalKm || 0} km totais</p>
+              <p className="text-[#666] text-sm">{currentUser?.totalKm || 0} total km</p>
             </div>
           </button>
 
           {/* Menu Items */}
           <div className="space-y-2">
-            <div className="text-[#666] text-xs font-semibold uppercase tracking-wider mb-3">Grupos</div>
+            <div className="text-[#666] text-xs font-semibold uppercase tracking-wider mb-3">Groups</div>
             {userClubs.map((club) => (
               <button 
                 key={club.id}
@@ -93,43 +93,43 @@ export default function GlobalDrawer({ isOpen, onClose, currentPage }: GlobalDra
               </button>
             ))}
 
-            <div className="text-[#666] text-xs font-semibold uppercase tracking-wider mb-3 mt-6">Ações</div>
+            <div className="text-[#666] text-xs font-semibold uppercase tracking-wider mb-3 mt-6">Actions</div>
             <button 
               onClick={() => navigateTo('/create-club')}
               className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-[#2A2A2A] transition-colors"
             >
               <Plus className="w-5 h-5 text-[#FDDA24]" />
-              <span className="text-[#F6F7F8]">Criar grupo</span>
+              <span className="text-[#F6F7F8]">Create group</span>
             </button>
             <button 
               onClick={() => navigateTo('/join-group')}
               className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-[#2A2A2A] transition-colors"
             >
               <UserPlus className="w-5 h-5 text-[#B7ACE8]" />
-              <span className="text-[#F6F7F8]">Juntar-se ao grupo</span>
+              <span className="text-[#F6F7F8]">Join group</span>
             </button>
 
-            <div className="text-[#666] text-xs font-semibold uppercase tracking-wider mb-3 mt-6">Configurações</div>
+            <div className="text-[#666] text-xs font-semibold uppercase tracking-wider mb-3 mt-6">Settings</div>
             <button 
               onClick={() => navigateTo('/start-run')}
               className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-[#2A2A2A] transition-colors"
             >
               <Play className="w-5 h-5 text-[#FDDA24]" />
-              <span className="text-[#F6F7F8]">Iniciar Corrida</span>
+              <span className="text-[#F6F7F8]">Start Run</span>
             </button>
             <button 
               onClick={() => navigateTo('/withdraw')}
               className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-[#2A2A2A] transition-colors"
             >
               <DollarSign className="w-5 h-5 text-[#FDDA24]" />
-              <span className="text-[#F6F7F8]">Sacar</span>
+              <span className="text-[#F6F7F8]">Withdraw</span>
             </button>
             <button
               onClick={handleLogout}
               className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-[#2A2A2A] transition-colors text-[#FDDA24]"
             >
               <LogOut className="w-5 h-5" />
-              <span>Deslogar</span>
+              <span>Log out</span>
             </button>
           </div>
         </div>

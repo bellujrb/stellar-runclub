@@ -25,7 +25,7 @@ export default function GroupPage() {
     }
   }, [userClubs, selectedClub, setSelectedClub])
 
-  // Se não tem grupos, mostra a tela vazia
+  // If no groups, show empty screen
   if (userClubs.length === 0) {
     return (
       <div className="min-h-screen bg-[#0F0F0F] text-white flex flex-col">
@@ -33,30 +33,30 @@ export default function GroupPage() {
           <div className="w-24 h-24 bg-[#2A2A2A] rounded-full flex items-center justify-center mb-6">
             <Users className="w-12 h-12 text-[#FDDA24]" />
           </div>
-          <h2 className="text-2xl font-bold text-[#F6F7F8] mb-4">Sem grupos disponíveis</h2>
+          <h2 className="text-2xl font-bold text-[#F6F7F8] mb-4">No groups available</h2>
           <p className="text-[#B7ACE8] mb-8 max-w-sm">
-            Você ainda não faz parte de nenhum grupo. Crie seu primeiro clube ou junte-se a um existente!
+            You're not part of any group yet. Create your first club or join an existing one!
           </p>
           <div className="space-y-4 w-full max-w-sm">
             <Button 
               onClick={() => router.push('/create-club')}
               className="w-full bg-[#FDDA24] text-[#0F0F0F] hover:bg-[#E5C321] font-semibold py-3"
             >
-              Criar Novo Clube
+              Create New Club
             </Button>
             <Button 
               onClick={() => router.push('/join-group')}
               variant="outline"
               className="w-full bg-[#FDDA24] text-[#0F0F0F] hover:bg-[#E5C321] font-semibold py-3"
             >
-              Juntar-se a um Grupo
+              Join a Group
             </Button>
             <SignOutButton>
               <Button 
                 variant="outline"
                 className="w-full border-red-400 text-red-400 hover:bg-red-400 hover:text-white font-semibold py-3"
               >
-                Deslogar
+                Sign Out
               </Button>
             </SignOutButton>
           </div>
@@ -90,26 +90,26 @@ export default function GroupPage() {
       </div>
       
       <div className="bg-[#1A1A1A] rounded-xl p-4">
-        <h3 className="text-[#F6F7F8] font-semibold mb-3">Informações do Clube</h3>
+        <h3 className="text-[#F6F7F8] font-semibold mb-3">Club Information</h3>
         <div className="space-y-2">
           <div className="flex justify-between">
-            <span className="text-[#B7ACE8]">Nome:</span>
+            <span className="text-[#B7ACE8]">Name:</span>
             <span className="text-[#F6F7F8]">{selectedClub?.name}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-[#B7ACE8]">Símbolo:</span>
+            <span className="text-[#B7ACE8]">Symbol:</span>
             <span className="text-[#F6F7F8]">{selectedClub?.symbol}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-[#B7ACE8]">Total de Tokens:</span>
+            <span className="text-[#B7ACE8]">Total Tokens:</span>
             <span className="text-[#F6F7F8]">{selectedClub?.totalTokens.toLocaleString()}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-[#B7ACE8]">Membros:</span>
+            <span className="text-[#B7ACE8]">Members:</span>
             <span className="text-[#F6F7F8]">{selectedClub?.members.length}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-[#B7ACE8]">Saldo:</span>
+            <span className="text-[#B7ACE8]">Balance:</span>
             <span className="text-[#F6F7F8]">$ {selectedClub?.balance.toFixed(2)}</span>
           </div>
         </div>
@@ -124,8 +124,8 @@ export default function GroupPage() {
           {clubMessages.length === 0 ? (
             <div className="text-center text-[#B7ACE8] py-8">
               <MessageCircle className="w-12 h-12 mx-auto mb-3 opacity-50" />
-              <p>Nenhuma mensagem ainda</p>
-              <p className="text-sm">Seja o primeiro a enviar uma mensagem!</p>
+              <p>No messages yet</p>
+              <p className="text-sm">Be the first to send a message!</p>
             </div>
           ) : (
             clubMessages.map((message) => (
@@ -133,7 +133,7 @@ export default function GroupPage() {
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-[#FDDA24] font-semibold text-sm">{message.userName}</span>
                   <span className="text-[#666] text-xs">
-                    {message.timestamp.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                    {message.timestamp.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
                   </span>
                 </div>
                 <p className="text-[#F6F7F8] text-sm">{message.message}</p>
@@ -148,7 +148,7 @@ export default function GroupPage() {
           <Input
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="Digite sua mensagem..."
+            placeholder="Type your message..."
             className="flex-1 bg-[#2A2A2A] border-0 text-[#F6F7F8] placeholder:text-[#666]"
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
           />
@@ -170,8 +170,8 @@ export default function GroupPage() {
         {clubRanking.length === 0 ? (
           <div className="text-center text-[#B7ACE8] py-8">
             <Trophy className="w-12 h-12 mx-auto mb-3 opacity-50" />
-            <p>Nenhum dado de ranking ainda</p>
-            <p className="text-sm">Comece a correr para aparecer no ranking!</p>
+            <p>No ranking data yet</p>
+            <p className="text-sm">Start running to appear in the ranking!</p>
           </div>
         ) : (
           clubRanking.map((user, index) => (
@@ -182,7 +182,7 @@ export default function GroupPage() {
                 </div>
                 <div>
                   <p className="text-[#F6F7F8] font-semibold">{user.name}</p>
-                  <p className="text-[#B7ACE8] text-sm">{user.totalKm} km totais</p>
+                  <p className="text-[#B7ACE8] text-sm">{user.totalKm} total km</p>
                 </div>
               </div>
               <div className="text-right">
@@ -217,7 +217,7 @@ export default function GroupPage() {
         </Button>
         
         <h1 className="text-lg font-bold text-[#F6F7F8]">
-          {selectedClub?.name || 'Meus Grupos'}
+          {selectedClub?.name || 'My Groups'}
         </h1>
         
         <Button
@@ -236,7 +236,7 @@ export default function GroupPage() {
         {activeTab === 'ranking' && renderRanking()}
       </div>
 
-      {/* Bottom Navigation - Estilo da imagem */}
+      {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 bg-[#1A1A1A] border-t border-[#2A2A2A] px-4 py-2">
         <div className="flex justify-center items-center space-x-1">
           <button
@@ -248,7 +248,7 @@ export default function GroupPage() {
             }`}
           >
             <Eye className="w-5 h-5 mb-1" />
-            <span className="text-xs font-medium">Detalhes</span>
+            <span className="text-xs font-medium">Details</span>
           </button>
           <button
             onClick={() => setActiveTab('chat')}
@@ -259,7 +259,7 @@ export default function GroupPage() {
             }`}
           >
             <MessageCircle className="w-5 h-5 mb-1" />
-            <span className="text-xs font-medium">Bate-papo</span>
+            <span className="text-xs font-medium">Chat</span>
           </button>
           <button
             onClick={() => setActiveTab('ranking')}

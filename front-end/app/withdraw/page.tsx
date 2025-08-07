@@ -33,12 +33,12 @@ export default function WithdrawPage() {
   const [selectedClub, setSelectedClub] = useState<Club | null>(null)
   const [withdrawAmount, setWithdrawAmount] = useState('')
 
-  // Função para converter tokens em dólares (1 dólar = 1000 tokens)
+  // Function to convert tokens to dollars (1 dollar = 1000 tokens)
   const tokensToUSD = (tokens: number) => {
     return (tokens / 1000).toFixed(2)
   }
 
-  // Função para converter dólares em tokens
+  // Function to convert dollars to tokens
   const usdToTokens = (usd: number) => {
     return Math.floor(usd * 1000)
   }
@@ -77,9 +77,9 @@ export default function WithdrawPage() {
           className="flex items-center space-x-2 text-[#FDDA24] hover:text-[#B7ACE8] transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
-          <span>Voltar</span>
+          <span>Back</span>
         </button>
-        <h1 className="text-xl font-bold">Sacar Tokens</h1>
+        <h1 className="text-xl font-bold">Withdraw Tokens</h1>
         <div className="w-16"></div> {/* Spacer */}
       </div>
 
@@ -89,16 +89,16 @@ export default function WithdrawPage() {
           <div className="w-20 h-20 bg-[#FDDA24] rounded-full flex items-center justify-center mx-auto mb-4">
             <DollarSign className="w-10 h-10 text-[#0F0F0F]" />
           </div>
-          <h2 className="text-2xl font-bold mb-2">Sacar Tokens</h2>
+          <h2 className="text-2xl font-bold mb-2">Withdraw Tokens</h2>
           <p className="text-[#D6D2C4] text-sm">
-            Saque os tokens que você ganhou correndo.
+            Withdraw the tokens you earned by running.
           </p>
         </div>
 
         <div className="space-y-6">
           {/* Club Selection */}
           <div>
-            <label className="text-[#F6F7F8] text-sm font-semibold mb-3 block">Selecionar Clube</label>
+            <label className="text-[#F6F7F8] text-sm font-semibold mb-3 block">Select Club</label>
             <select
               value={selectedClub?.id || ''}
               onChange={(e) => {
@@ -107,10 +107,10 @@ export default function WithdrawPage() {
               }}
               className="w-full h-14 bg-[#2A2A2A] border border-[#333] rounded-xl px-4 text-[#F6F7F8] focus:border-[#FDDA24] focus:outline-none"
             >
-              <option value="">Escolha um clube</option>
+              <option value="">Choose a club</option>
               {userClubs.map((club) => (
                 <option key={club.id} value={club.id}>
-                  {club.name} - {club.balance.toLocaleString()} tokens disponíveis
+                  {club.name} - {club.balance.toLocaleString()} available tokens
                 </option>
               ))}
             </select>
@@ -129,18 +129,18 @@ export default function WithdrawPage() {
               
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center p-3 bg-[#0F0F0F] rounded-lg">
-                  <p className="text-[#666] text-xs mb-1">Tokens Disponíveis</p>
+                  <p className="text-[#666] text-xs mb-1">Available Tokens</p>
                   <p className="text-[#FDDA24] font-bold text-lg">{selectedClub.balance.toLocaleString()}</p>
                 </div>
                 <div className="text-center p-3 bg-[#0F0F0F] rounded-lg">
-                  <p className="text-[#666] text-xs mb-1">Valor em USD</p>
+                  <p className="text-[#666] text-xs mb-1">USD Value</p>
                   <p className="text-[#FDDA24] font-bold text-lg">${tokensToUSD(selectedClub.balance)}</p>
                 </div>
               </div>
               
               <div className="mt-3 p-2 bg-[#0F0F0F] rounded-lg">
                 <p className="text-[#D6D2C4] text-xs text-center">
-                  Ganho por km: ${selectedClub.dollarsPerKm} ({usdToTokens(selectedClub.dollarsPerKm)} tokens)
+                  Earning per km: ${selectedClub.dollarsPerKm} ({usdToTokens(selectedClub.dollarsPerKm)} tokens)
                 </p>
               </div>
             </div>
@@ -148,14 +148,14 @@ export default function WithdrawPage() {
 
           {/* Token Amount Input */}
           <div>
-            <label className="text-[#F6F7F8] text-sm font-semibold mb-3 block">Quantidade de Tokens</label>
+            <label className="text-[#F6F7F8] text-sm font-semibold mb-3 block">Token Amount</label>
             <div className="relative">
               <input
                 type="number"
                 value={withdrawAmount}
                 onChange={(e) => setWithdrawAmount(e.target.value)}
                 max={selectedClub?.balance || 0}
-                placeholder="Digite a quantidade"
+                placeholder="Enter amount"
                 className="w-full h-14 bg-[#2A2A2A] border border-[#333] rounded-xl px-4 pr-20 text-[#F6F7F8] focus:border-[#FDDA24] focus:outline-none"
               />
               <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#666] text-sm">
@@ -166,7 +166,7 @@ export default function WithdrawPage() {
             {withdrawAmount && selectedClub && (
               <div className="mt-2 p-3 bg-[#2A2A2A] rounded-lg">
                 <div className="flex justify-between items-center">
-                  <span className="text-[#D6D2C4] text-sm">Valor em USD:</span>
+                  <span className="text-[#D6D2C4] text-sm">USD Value:</span>
                   <span className="text-[#FDDA24] font-bold">${tokensToUSD(parseFloat(withdrawAmount) || 0)}</span>
                 </div>
               </div>
@@ -175,13 +175,13 @@ export default function WithdrawPage() {
             {selectedClub && (
               <div className="flex justify-between items-center mt-2">
                 <p className="text-[#666] text-sm">
-                  Máximo: {selectedClub.balance.toLocaleString()} tokens
+                  Maximum: {selectedClub.balance.toLocaleString()} tokens
                 </p>
                 <button
                   onClick={() => setWithdrawAmount(selectedClub.balance.toString())}
                   className="text-[#FDDA24] text-sm hover:text-[#B7ACE8] transition-colors"
                 >
-                  Sacar tudo
+                  Withdraw all
                 </button>
               </div>
             )}
@@ -194,12 +194,12 @@ export default function WithdrawPage() {
                 <Wallet className={`w-6 h-6 ${isConnected ? 'text-green-500' : 'text-[#666]'}`} />
                 <div>
                   <p className="text-[#F6F7F8] font-semibold">
-                    {isConnected ? 'Carteira Conectada' : 'Carteira Desconectada'}
+                    {isConnected ? 'Wallet Connected' : 'Wallet Disconnected'}
                   </p>
                   <p className="text-[#666] text-xs">
                     {isConnected 
-                      ? `Endereço: ${publicKey ? formatAddress(publicKey) : 'Desconhecido'}` 
-                      : 'Conecte sua carteira para continuar'
+                      ? `Address: ${publicKey ? formatAddress(publicKey) : 'Unknown'}` 
+                      : 'Connect your wallet to continue'
                     }
                   </p>
                 </div>
@@ -210,7 +210,7 @@ export default function WithdrawPage() {
                   disabled={isLoading}
                   className="bg-[#FDDA24] hover:bg-[#B7ACE8] text-[#0F0F0F] font-bold rounded-lg px-4 py-2"
                 >
-                  {isLoading ? 'Conectando...' : 'Conectar'}
+                  {isLoading ? 'Connecting...' : 'Connect'}
                 </Button>
               )}
             </div>
@@ -227,8 +227,8 @@ export default function WithdrawPage() {
               className="w-full h-14 bg-[#FDDA24] hover:bg-[#B7ACE8] text-[#0F0F0F] font-bold rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-lg"
             >
               {withdrawAmount && selectedClub ? 
-                `Sacar ${parseFloat(withdrawAmount).toLocaleString()} tokens ($${tokensToUSD(parseFloat(withdrawAmount))})` : 
-                'Sacar USD'
+                `Withdraw ${parseFloat(withdrawAmount).toLocaleString()} tokens ($${tokensToUSD(parseFloat(withdrawAmount))})` : 
+                'Withdraw USD'
               }
             </Button>
             <Button
@@ -236,7 +236,7 @@ export default function WithdrawPage() {
               variant="outline"
               className="w-full h-14 bg-transparent border-[#333] hover:bg-[#FDDA24] hover:bg-opacity-10 hover:border-[#FDDA24] text-[#F6F7F8] hover:text-[#FDDA24] font-semibold rounded-xl transition-all duration-200"
             >
-              Cancelar
+              Cancel
             </Button>
           </div>
         </div>

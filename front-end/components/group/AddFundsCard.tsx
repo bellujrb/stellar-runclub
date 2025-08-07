@@ -14,11 +14,11 @@ export const AddFundsCard = ({ onAddFunds, clubBalance }: AddFundsCardProps) => 
           <DollarSign className="w-5 h-5 text-[#F6F7F8]" />
         </div>
         <div>
-          <p className="text-[#F6F7F8] font-semibold text-lg">Saldo do Clube</p>
+          <p className="text-[#F6F7F8] font-semibold text-lg">Club Balance</p>
           <p className="text-[#FDDA24] font-bold text-2xl">{clubBalance}</p>
         </div>
       </div>
     </div>
-    <p className="text-[#666] text-sm">Fundos disponíveis para recompensas e pools</p>
+    <p className="text-[#666] text-sm">Available funds for rewards and pools</p>
   </div>
 )

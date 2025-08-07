@@ -12,7 +12,7 @@ export const MembersCard = ({ memberCount }: MembersCardProps) => (
       </div>
       <div>
         <p className="text-[#F6F7F8] font-bold text-xl">{memberCount}</p>
-        <p className="text-[#666] text-sm">Integrantes</p>
+        <p className="text-[#666] text-sm">Members</p>
       </div>
     </div>
   </div>
