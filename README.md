@@ -217,13 +217,13 @@ stellar-runclub
 #### `stellar-runclub`
 
 - `back-end`
-    - Back-end 
+    - Backend Application
 - `blockchain`
-    - Blockchain
+    - Blockchain (Soroban)
 - `front-end`
-    - Frontend 
+    - Frontend Application
 - `README.md`
-    - Documentação
+    - Documentation
  
 ---
 
